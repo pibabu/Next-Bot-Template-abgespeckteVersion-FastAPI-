@@ -1,5 +1,6 @@
 'use client'
 
+// copying the message content to the clipboard. hover etc
 import { type Message } from 'ai'
 
 import { Button } from '@/components/ui/button'

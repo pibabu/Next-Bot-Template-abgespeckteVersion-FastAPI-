@@ -1,7 +1,10 @@
-import { type Message } from 'ai'
+import { type Message } from '../types'
 
 import { Separator } from '@/components/ui/separator'
 import { ChatMessage } from '@/components/chat-message'
+
+
+// defines a TypeScript interface and a React functional component; 
 
 export interface ChatList {
     messages: Message[]

@@ -15,7 +15,7 @@ import { cn } from '@/lib/utils'
 
 export interface PromptProps
     extends Pick<UseChatHelpers, 'input' | 'setInput'> {
-    onSubmit: (value: string) => Promise<void>
+    onSubmit: (value: string) => Promise<void>  // !! function to call on submit
     isLoading: boolean
 }
 

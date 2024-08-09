@@ -1,13 +1,16 @@
 'use client'
 
-// copying the message content to the clipboard. hover etc
-import { type Message } from 'ai'
+// copying the message content to the clipboard, hover:
+import { type Message } from '../types';
 
 import { Button } from '@/components/ui/button'
 import { IconCheck, IconCopy } from '@/components/ui/icons'
 import { useCopyToClipboard } from '@/lib/hooks/use-copy-to-clipboard'
 import { cn } from '@/lib/utils'
 
+
+// ChatMessageActionsProps interface extends the React.ComponentProps<'div'> interface,
+// which means it inherits all the props that a div element in React can accept:
 interface ChatMessageActionsProps extends React.ComponentProps<'div'> {
     message: Message
 }

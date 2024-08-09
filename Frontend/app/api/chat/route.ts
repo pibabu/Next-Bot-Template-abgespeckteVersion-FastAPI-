@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { NextResponse } from 'next/server';
 
 const API_URL = 'http://127.0.0.1:8000/api/text';
 
@@ -6,23 +7,21 @@ const rapApi = axios.create({
   baseURL: API_URL,
 });
 
-const rap = async (req, res) => {
+// Export the POST method
+export async function POST(req: Request) {
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+    return NextResponse.json({ error: 'Method not allowed' }, { status: 405 });
   }
 
-  const { message } = req.body;
+  const { message } = await req.json(); // Parse the JSON body
 
   try {
     const response = await rapApi.post('', {
-      role: 'user',
       message,
     });
-    return res.json(response.data); 
+    return NextResponse.json(response.data); 
   } catch (error) {
     console.error('Error in API call:', error);
-    return res.status(500).json({ error: 'Error in API call' });
+    return NextResponse.json({ error: 'Error in API call' }, { status: 500 });
   }
-};
-
-export default rap; 
+}

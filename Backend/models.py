@@ -4,14 +4,19 @@ from json import JSONEncoder
 
 
 
+# class RapRequest(BaseModel):
+#     role: str #= Field(default="user", description="Supported values are: 'system', 'assistant', 'user', 'function', and 'tool'")
+#     content: str
+
 class RapRequest(BaseModel):
     role: str = Field(default="user", description="Supported values are: 'system', 'assistant', 'user', 'function', and 'tool'")
     message: str
 
 class RapResponse(BaseModel):
     response: str
-
     
+class Message(BaseModel):
+        message: str
 
 
 # class ChatCompletionRequest(BaseModel):

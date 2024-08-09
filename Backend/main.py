@@ -41,15 +41,23 @@ async def hello_endpoint(name: str = 'World'):
 async def async_chat(websocket: WebSocket):
         await websocket.accept()
         while True:
-            question = await websocket.receive_text()
-            async for event in stream_completion(question):
-                if event["event_type"] == "done":
-                    await websocket.close()
-                    return
-                else:
-                    await websocket.send_text(json.dumps(event))
-                    
-                    
+            try:
+                data = await websocket.receive_text()  # Receive text from the client
+                message_data = Message.model_validate_json(data)  # Validate and parse the incoming data
+                question = message_data.message  # Access the message content
+            
+                async for event in stream_completion(question):
+                    if event["event_type"] == "done":
+                        await websocket.close()
+                        return
+                    else:
+                        await websocket.send_text(json.dumps(event))  # Send event data back to the client
+            except Exception as e:
+                print(f"Error: {e}")  # Log any errors
+                await websocket.close()  # Close the connection on error
+                break
+            
+            
 # @app.post("/chat", description="Chat")
 # async def chat(message: Message):
 #         response = get_answer_and_docs(message.message)
